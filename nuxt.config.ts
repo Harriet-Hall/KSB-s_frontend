@@ -4,5 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
     typeCheck: true
-  }
+  },
+  modules: [
+    '@nuxt/test-utils/module'
+  ]
 })
