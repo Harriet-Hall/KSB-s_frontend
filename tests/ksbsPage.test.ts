@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { mockNuxtImport, renderSuspended } from "@nuxt/test-utils/runtime";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/vue";
-import KsbList from "~/components/KsbList.vue";
+import KsbsPage from "~/pages/index.vue";
 
 
 const { mockFetch } = vi.hoisted(() => ({
@@ -44,7 +44,7 @@ const MOCKED_VALUE = [
 describe("ksbs", async () => {
 
   afterEach(()=>{
-    mockFetch.mockRestore()
+    mockFetch.mockClear()
   })
 
   it("should display a list of ksbs", async () => {
@@ -53,7 +53,8 @@ describe("ksbs", async () => {
     mockFetch.mockReturnValue({
       data: mockData,
     });
-    await renderSuspended(KsbList, { props: { data: MOCKED_VALUE } });
+
+    await renderSuspended(KsbsPage, { props: { data: MOCKED_VALUE } });
 
     const headers = screen.getAllByRole("columnheader");
     const headerTexts = headers.map((header) => header.textContent);
@@ -91,7 +92,7 @@ describe("ksbs", async () => {
       data: mockData,
     });
     
-    await renderSuspended(KsbList, { props: { data: mockData.value } });
+    await renderSuspended(KsbsPage, { props: { data: mockData.value } });
     const user = userEvent.setup();
     const rows = screen.getAllByRole("row");
     expect(rows.length).toBe(4);
@@ -104,12 +105,11 @@ describe("ksbs", async () => {
       expect.any(String)
     );
     mockData.value.splice(1, 1)
-    await renderSuspended(KsbList, { props: { data: mockData.value } });
+    await renderSuspended(KsbsPage);
   
     const updatedRows = screen.getAllByRole("row");
     expect(updatedRows.length).toBe(3)
     expect(screen.queryByText('skill description')).toBeNull()
   });
-  
 });
 
