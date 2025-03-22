@@ -4,15 +4,14 @@ import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/vue";
 import KsbList from "~/components/KsbList.vue";
 
+
 const { mockFetch } = vi.hoisted(() => ({
   mockFetch: vi.fn(),
 }));
 
 mockNuxtImport("useFetch", () => mockFetch);
 
-afterEach(() => {
-  mockFetch.mockReset();
-});
+
 
 const MOCKED_VALUE = [
   {
@@ -21,6 +20,7 @@ const MOCKED_VALUE = [
     code: 2,
     description: "knowledge description",
     updated_at: "Wed, 12 Mar 2025 12:45:39 GMT",
+    theme: "code quality"
   },
   {
     id: "d9385487-94de-484b-8f0c-079d365815f8",
@@ -28,6 +28,8 @@ const MOCKED_VALUE = [
     code: 3,
     description: "skill description",
     updated_at: "Wed, 13 Mar 2025 12:45:39 GMT",
+    theme: "data persistence"
+
   },
   {
     id: "d9385487-94de-484b-8f0c-079d365815f7",
@@ -35,6 +37,8 @@ const MOCKED_VALUE = [
     code: 2,
     description: "behaviour description",
     updated_at: "Wed, 14 Mar 2025 12:45:39 GMT",
+    theme: "code quality"
+
   },
 ];
 describe("ksbs", async () => {
@@ -58,6 +62,7 @@ describe("ksbs", async () => {
       "KSB Code",
       "KSB description",
       "KSB was last updated at:",
+      "KSB theme"
     ]) {
       expect(expectedHeader in headerTexts);
     }
@@ -66,10 +71,14 @@ describe("ksbs", async () => {
     expect(screen.getAllByText(2)).toBeDefined();
     expect(screen.getByText("knowledge description")).toBeDefined();
     expect(screen.getByText("Wed, 12 Mar 2025 12:45:39 GMT")).toBeDefined();
+    expect(screen.queryAllByText("code quality")).toBeDefined();
+
 
     expect(screen.getByText("Skill")).toBeDefined();
     expect(screen.getByText("skill description")).toBeDefined();
     expect(screen.getByText("Wed, 13 Mar 2025 12:45:39 GMT")).toBeDefined();
+    expect(screen.getByText("data persistence")).toBeDefined();
+
 
     expect(screen.getByText("Behaviour")).toBeDefined();
     expect(screen.getByText("behaviour description")).toBeDefined();
@@ -81,6 +90,7 @@ describe("ksbs", async () => {
     mockFetch.mockReturnValue({
       data: mockData,
     });
+    
     await renderSuspended(KsbList, { props: { data: mockData.value } });
     const user = userEvent.setup();
     const rows = screen.getAllByRole("row");
@@ -100,6 +110,6 @@ describe("ksbs", async () => {
     expect(updatedRows.length).toBe(3)
     expect(screen.queryByText('skill description')).toBeNull()
   });
- 
-  });
+  
+});
 

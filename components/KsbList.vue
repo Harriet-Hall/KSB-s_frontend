@@ -8,8 +8,9 @@ export type Ksb = {
 id: string;  
 type: string;
 code: number; 
-description: string,
+description: string;
 updated_at: string;
+theme: string;
 
 }
 
@@ -30,6 +31,7 @@ const remove = async (id: string) => {
       <th>KSB Code</th>
       <th>KSB Description</th>
       <th>KSB was last updated at:</th>
+      <th>KSB theme</th>
 
     </tr>
     <tr
@@ -39,6 +41,8 @@ const remove = async (id: string) => {
       <td>{{ row.code }}</td>
       <td>{{ row.description }}</td>
       <td>{{ row.updated_at }}</td>
+      <td>{{ row.theme }}</td>
+
 
       <td><button :aria-label="`delete-id-${index}`" @click="remove(row.id)">Delete</button>
       </td>
