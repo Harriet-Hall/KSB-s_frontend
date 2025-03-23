@@ -5,5 +5,5 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
-  modules: ['@nuxt/test-utils/module', 'nuxt-auth-utils']
+  modules: ['@nuxt/test-utils/module', 'nuxt-auth-utils', '@nuxt/ui'],
 })
