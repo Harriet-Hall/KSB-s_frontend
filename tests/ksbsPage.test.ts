@@ -4,7 +4,7 @@ import KsbList from "../components/KsbList.vue";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
 import { screen } from "@testing-library/vue";
 import { nextTick } from "vue";
-import type { Ksb } from "../types";
+import type { Ksb } from "../types.ts"
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
@@ -12,7 +12,7 @@ afterAll(() => server.close());
 
 afterEach(() => server.resetHandlers());
 
-describe("KsbList", async () => {
+describe("Ksb homepage", async () => {
   it("should get a list of ksbs", async () => {
     const MOCKED_DATA: Ksb[] = [
       {
@@ -41,7 +41,6 @@ describe("KsbList", async () => {
       },
     ];
 
-    console.log();
     await renderSuspended(KsbList, { props: { data: MOCKED_DATA } });
 
     await nextTick();
@@ -69,11 +68,12 @@ describe("KsbList", async () => {
     expect(screen.getByText("behaviour description")).toBeDefined();
     expect(screen.getByText("Wed, 14 Mar 2025 12:45:39 GMT")).toBeDefined();
   });
-  it("should delete a ksb", async () => {
+  it("should allow users to delete a ksb", async () => {
     const response = await fetch("/ksbs/d9385487-94de-484b-8f0c-079d365815f8", {
       method: "DELETE",
     });
     expect(response.status).toBe(204);
     expect(response.statusText).toBe("No Content");
   });
+
 });
