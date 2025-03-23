@@ -3,8 +3,8 @@ import type { KsbRequestData } from '../../types'
 
 export const handlers = [
 
-  http.get('/ksbs', () => {
-
+  http.get('http://35.176.157.141:5000/ksbs', ({ request }) => {
+    console.log("HERE")
     return HttpResponse.json([
       {
         id: "d9385487-94de-484b-8f0c-079d365815f9",
@@ -35,7 +35,7 @@ export const handlers = [
     ])
   }),
 
-  http.delete('/ksbs/:id', ({ params }) => {
+  http.delete('http://35.176.157.141:5000/ksbs/:id', ({ params }) => {
     const { id } = params
     return HttpResponse.json({}, {status: 204})
   }),
