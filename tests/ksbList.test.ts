@@ -1,20 +1,13 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
-import { server } from "../src/mocks/node";
+import { describe, expect, it } from "vitest";
 import KsbList from "../components/KsbList.vue";
-import AddKsb from "~/components/AddKsb.vue";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
 import { screen } from "@testing-library/vue";
 import { nextTick } from "vue";
 import type { Ksb } from "../types.ts"
 import userEvent from "@testing-library/user-event";
 
-beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
-afterAll(() => server.close());
-
-afterEach(() => server.resetHandlers());
-
-describe("Ksb homepage", async () => {
+describe("KsbList", async () => {
   const MOCKED_DATA: Ksb[] = [
     {
       id: "d9385487-94de-484b-8f0c-079d365815f9",
@@ -85,5 +78,4 @@ describe("Ksb homepage", async () => {
     expect(updatedRows.length).toBe(3)
     expect(screen.queryByText('skill description')).toBeNull()
   });
-
 });
