@@ -3,6 +3,7 @@ import { server } from "../src/mocks/node";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
 import { screen, waitFor } from "@testing-library/vue";
 import KsbPage from "../pages/index.vue"
+import userEvent from "@testing-library/user-event";
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" })) 
 
@@ -11,8 +12,8 @@ afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe("KsbPage", () => {
-
-  it('should call ksb endpoint and return ksbs', async() => {
+  const user = userEvent.setup()
+  it('should call the GET endpoint and return ksbs', async() => {
 
     await renderSuspended(KsbPage);
       expect(screen.getByText("knowledge description")).toBeDefined();
@@ -20,6 +21,16 @@ describe("KsbPage", () => {
       expect(screen.getByText("behaviour description")).toBeDefined();
   
      });
+     it('should call the DELETE endpoint delete a ksb', async () => {
+     await renderSuspended(KsbPage);
+     const rows = screen.getAllByRole("row");
+     expect(rows.length).toBe(4);
+     
+     await user.click(screen.getByRole("button", { name: "delete-id-1" }));
+     await waitFor(() => {
+       expect(screen.getAllByRole("row")).toHaveLength(3);
+     })
+     })
   })
 
 
