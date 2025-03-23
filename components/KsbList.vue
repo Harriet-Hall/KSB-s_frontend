@@ -1,21 +1,14 @@
 <script setup lang="ts">
+import type { Ksb } from '../types'
 const props = defineProps<{
 
-data: Ksb[]
+  data: Ksb[]
 }>();
 
-export type Ksb = {
-id: string;  
-type: string;
-code: number; 
-description: string;
-updated_at: string;
-theme: string;
 
-}
 
 const remove = async (id: string) => {
-  await useAPI(`/ksbs/${id}`,{ method: "DELETE" } )
+  await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   refreshNuxtData();
 
 };
@@ -23,33 +16,31 @@ const remove = async (id: string) => {
 
 
 <template>
-<div>
-  <table>
-    <tbody>
-    <tr>
-      <th>KSB Type</th>
-      <th>KSB Code</th>
-      <th>KSB Description</th>
-      <th>KSB was last updated at:</th>
-      <th>KSB theme</th>
+  <div>
+    <table>
+      <tbody>
+        <tr>
+          <th>KSB Type</th>
+          <th>KSB Code</th>
+          <th>KSB Description</th>
+          <th>KSB was last updated at:</th>
+          <th>KSB theme</th>
 
-    </tr>
-    <tr
-      v-for="(row, index) in props.data"
-      >
-      <td>{{ row.type }}</td>
-      <td>{{ row.code }}</td>
-      <td>{{ row.description }}</td>
-      <td>{{ row.updated_at }}</td>
-      <td>{{ row.theme }}</td>
+        </tr>
+        <tr v-for="(row, index) in props.data">
+          <td>{{ row.type }}</td>
+          <td>{{ row.code }}</td>
+          <td>{{ row.description }}</td>
+          <td>{{ row.updated_at }}</td>
+          <td>{{ row.theme }}</td>
 
 
-      <td><button :aria-label="`delete-id-${index}`" @click="remove(row.id)">Delete</button>
-      </td>
+          <td><button :aria-label="`delete-id-${index}`" @click="remove(row.id)">Delete</button>
+          </td>
 
-    </tr>
-  </tbody>
-  </table>
-</div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </template>

@@ -1,10 +1,6 @@
 import { http, HttpResponse } from 'msw'
+import type { KsbRequestData } from '../../types'
 
-interface KsbRequestData {
-  code: number;
-  description: string;
-  theme: string;
-}
 export const handlers = [
 
   http.get('/ksbs', () => {
