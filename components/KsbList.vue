@@ -16,8 +16,9 @@ const remove = async (id: string) => {
 
 
 <template>
-  <div>
+  <div class="table-padding">
     <table>
+      <caption>Knowledge, Skills and Behaviours</caption>
       <tbody>
         <tr>
           <th>KSB Type</th>
@@ -44,3 +45,35 @@ const remove = async (id: string) => {
   </div>
 
 </template>
+<style scoped>
+caption {
+  font-size: xxx-large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-bottom: 5px;
+  padding-top: 10px;
+
+
+}
+
+.table-padding {
+  padding-top: 20px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f7b8e7;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e495e4;
+}
+
+tbody tr {
+  background-image: url(noise.png);
+}
+
+table {
+  background-color: #ff33cc;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+</style>

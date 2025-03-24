@@ -1,53 +1,64 @@
 <script setup lang="ts">
+const selectedType = ref<string | null>(null);
+const types = ["Knowledge", "Skill", "Behaviour"];
 
+const code = ref<number | null>(null);
+const description = ref<string | null>(null);
 
-const selectedType = ref<string | null>(null)
-const types = ["Knowledge", "Skill", "Behaviour"]
-
-const code = ref<number | null>(null)
-const description = ref<string | null>(null)
-
-const selectedTheme = ref<string | null>(null)
-const themes = ["code quality", "meeting user needs", "the ci cd pipeline", "refreshing and patching", "operability", "data persistence", "automation", "data security"]
+const selectedTheme = ref<string | null>(null);
+const themes = [
+  "code quality",
+  "meeting user needs",
+  "the ci cd pipeline",
+  "refreshing and patching",
+  "operability",
+  "data persistence",
+  "automation",
+  "data security",
+];
 
 const addKsb = async () => {
-
-  if (!selectedType.value || !code.value || !description.value || !selectedTheme.value) {
-    console.log("ERROR - missing values")
+  if (
+    !selectedType.value ||
+    !code.value ||
+    !description.value ||
+    !selectedTheme.value
+  ) {
+    console.log("ERROR - missing values");
     return;
   }
 
   try {
     await useAPI(`/ksbs/${selectedType.value.toLowerCase()}`, {
-      method: 'POST',
+      method: "POST",
       body: {
-
         code: code.value,
         description: description.value,
-        theme: selectedTheme.value
+        theme: selectedTheme.value,
       },
     });
 
-    refreshNuxtData()
+    refreshNuxtData();
     selectedType.value = null;
     code.value = null;
     description.value = null;
     selectedTheme.value = null;
-
   } catch (error) {
-    console.error('Error adding KSB:', error);
-
+    console.error("Error adding KSB:", error);
   }
 };
 </script>
 
 <template>
+  <div></div>
   <h2>Add a KSB</h2>
   <div class="container">
     <label for="type">select type: </label>
     <span><select id="type" v-model="selectedType">
         <option disabled value=""></option>
-        <option  name="type" v-for="type in types" :key="type">{{ type }}</option>
+        <option name="type" v-for="type in types" :key="type">
+          {{ type }}
+        </option>
       </select>
     </span>
     <label for="code">select code: </label>
@@ -62,19 +73,28 @@ const addKsb = async () => {
     <span>
       <select id="theme" v-model="selectedTheme">
         <option disabled value="">Please select a Ksb theme</option>
-        <option name="theme" v-for="theme in themes" :key="theme">{{ theme }}</option>
+        <option name="theme" v-for="theme in themes" :key="theme">
+          {{ theme }}
+        </option>
       </select>
     </span>
+    <span>
+      <button @click="addKsb()">Add KSB</button>
+    </span>
   </div>
-
-  <button @click="addKsb()">Add KSB</button>
-
-
 </template>
 <style>
+h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: table;
-  width: 100%
+  width: 100%;
+  background-color: rgb(245, 150, 116);
+  height: 20px;
+  border: 3px;
 }
 
 label {
