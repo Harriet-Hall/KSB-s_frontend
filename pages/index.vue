@@ -4,8 +4,8 @@ const { data: ksbs } = await useAPI('/ksbs')
 
 </script>
 <template>
-<KsbList :data="ksbs"></KsbList>
-
+  <AddKsb/>
+  <KsbList :data="ksbs"></KsbList>
 </template>
 
 

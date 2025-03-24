@@ -30,7 +30,24 @@ describe("KsbPage", () => {
      await waitFor(() => {
        expect(screen.getAllByRole("row")).toHaveLength(3);
      })
-     })
-  })
+     }),
+     it('should call the POST endpoint and add a ksb', async () => {
+      await renderSuspended(KsbPage);
+      const rows = screen.getAllByRole("row");
+      expect(rows.length).toBe(3);
+      await user.selectOptions(screen.getByLabelText('select type:'), 'Knowledge');
+      await user.type(screen.getByLabelText('select code:'), '10');
+      await user.type(screen.getByLabelText('add description:'), 'Test description');
+      await user.selectOptions(screen.getByLabelText('select theme:'), 'code quality');
+  
+      await user.click(screen.getByRole("button", { name: "Add KSB" }));
+      await waitFor(() => {
+        expect(screen.getAllByRole("row")).toHaveLength(4);
+        expect(screen.getByText('Test description')).toBeDefined()
+      })
+      
+      })
+      })
+     
 
 
