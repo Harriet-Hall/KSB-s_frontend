@@ -13,11 +13,23 @@ export default defineEventHandler(async (event) => {
     // this server util is auto-imported by the auth-utils module
     await setUserSession(event, {
       user: {
-        name: 'John Doe'
+        name: 'John Doe full access'
       }
     })
     return {}
   }
+
+  if (email === 'restricted@admin.com' && password === 'iamnotadmin') {
+    // set the user session in the cookie
+    // this server util is auto-imported by the auth-utils module
+    await setUserSession(event, {
+      user: {
+        name: 'John Doe restricted access'
+      }
+    })
+    return {}
+  }
+  
   throw createError({
     statusCode: 401,
     message: 'Bad credentials'

@@ -1,0 +1,77 @@
+
+<script setup>
+
+definePageMeta({
+  middleware: ['authenticated'],
+})
+const { user, clear: clearSession } = useUserSession()
+
+async function logout() {
+  await clearSession()
+  await navigateTo('../login')
+}
+const { data: ksbs } = await useAPI('/ksbs')
+</script>
+
+<template>
+
+    <h1>Welcome {{ user.name }}</h1>
+    <button @click="logout">Logout</button>
+
+  <div class="table-padding">
+    <table>
+      <caption>Knowledge, Skills and Behaviours</caption>
+      <tbody>
+        <tr>
+          <th>KSB Type</th>
+          <th>KSB Code</th>
+          <th>KSB Description</th>
+          <th>KSB was last updated at:</th>
+          <th>KSB theme</th>
+
+        </tr>
+        <tr v-for="(ksb) in ksbs">
+          <td>{{ ksb.type }}</td>
+          <td>{{ ksb.code }}</td>
+          <td>{{ ksb.description }}</td>
+          <td>{{ ksb.updated_at }}</td>
+          <td>{{ ksb.theme }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+
+<style scoped>
+caption {
+  font-size: xxx-large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-bottom: 5px;
+  padding-top: 10px;
+
+
+}
+
+.table-padding {
+  padding-top: 20px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f7b8e7;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e495e4;
+}
+
+tbody tr {
+  background-image: url(noise.png);
+}
+
+table {
+  background-color: #ff7edf;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+</style>

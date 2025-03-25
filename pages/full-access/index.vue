@@ -1,5 +1,6 @@
 
 <script setup>
+
 definePageMeta({
   middleware: ['authenticated'],
 })
@@ -7,7 +8,7 @@ const { user, clear: clearSession } = useUserSession()
 
 async function logout() {
   await clearSession()
-  await navigateTo('/login')
+  await navigateTo('../login')
 }
 const { data: ksbs } = await useAPI('/ksbs')
 </script>

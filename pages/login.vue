@@ -10,18 +10,33 @@ async function login() {
     body: credentials
   })
   .then(async () => {
-    // Refresh the session on client-side and redirect to the home page
     await refreshSession()
-    await navigateTo('/')
+    if( credentials.email == 'admin@ksbs.com'){
+      await navigateTo('/full-access/')
+    }
+    else if (credentials.email == 'restricted@ksbs.com') {
+      await navigateTo('/restricted-access/')
+    }
   })
   .catch(() => alert('Bad credentials'))
 }
 </script>
 
 <template>
-  <form @submit.prevent="login">
+  <div>
+  <form class="login-container" @submit.prevent="login">
     <input v-model="credentials.email" type="email" placeholder="Email" />
     <input v-model="credentials.password" type="password" placeholder="Password" />
     <button type="submit">Login</button>
   </form>
+</div>
 </template>
+
+<style>
+.login-container {
+  margin: auto;
+  width: 30%;
+  border: 3px solid green;
+  padding: 50px;
+}
+</style>
