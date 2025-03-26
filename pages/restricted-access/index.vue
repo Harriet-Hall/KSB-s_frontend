@@ -14,9 +14,11 @@ const { data: ksbs } = await useAPI('/ksbs')
 </script>
 
 <template>
+   <div class="container">
 
     <h1>Welcome {{ user.name }}</h1>
     <button @click="logout">Logout</button>
+  </div>
 
   <div class="table-padding">
     <table>
@@ -52,7 +54,14 @@ caption {
 
 
 }
-
+.container {
+  padding-top: 20px;
+  padding-bottom:20px;
+}
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+}
 .table-padding {
   padding-top: 20px;
 }

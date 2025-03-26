@@ -14,10 +14,21 @@ const { data: ksbs } = await useAPI('/ksbs')
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <h1>Welcome {{ user.name }}</h1>
     <button @click="logout">Logout</button>
   </div>
   <AddKsb/>
   <KsbList :data="ksbs"></KsbList>
 </template>
+<style>
+
+.container {
+  padding-top: 20px;
+  padding-bottom:20px;
+}
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+}
+</style>

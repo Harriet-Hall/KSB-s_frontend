@@ -50,9 +50,8 @@ const addKsb = async () => {
 </script>
 
 <template>
-  <div></div>
-  <h2>Add a KSB</h2>
   <div class="container">
+  <h2>Add a KSB</h2>
     <label for="type">select type: </label>
     <span><select id="type" v-model="selectedType">
         <option disabled value=""></option>
@@ -81,7 +80,7 @@ const addKsb = async () => {
     <span>
       <button @click="addKsb()">Add KSB</button>
     </span>
-  </div>
+</div>
 </template>
 <style>
 h2 {
