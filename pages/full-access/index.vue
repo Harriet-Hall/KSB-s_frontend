@@ -15,7 +15,6 @@ const { data: ksbs } = await useAPI('/ksbs')
 
 <template>
   <div class="container">
-    <h1>Welcome {{ user.name }}</h1>
     <button @click="logout">Logout</button>
   </div>
   <AddKsb/>
