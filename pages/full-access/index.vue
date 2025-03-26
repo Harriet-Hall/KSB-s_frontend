@@ -1,30 +1,43 @@
-
 <script setup>
+import _ from "lodash";
 
 definePageMeta({
-  middleware: ['authenticated'],
-})
-const { user, clear: clearSession } = useUserSession()
+  middleware: ["authenticated"],
+});
+const { user, clear: clearSession } = useUserSession();
 
 async function logout() {
-  await clearSession()
-  await navigateTo('../login')
+  await clearSession();
+  await navigateTo("../login");
 }
-const { data: ksbs } = await useAPI('/ksbs')
+
+let { data: ksbs } = await useAPI("/ksbs");
+
+let ksbList = ref(ksbs.value);
+
+const handleSortBy = async (property) => {
+  return (ksbList.value = _.orderBy(ksbList.value, [property], ["asc"]));
+};
+
+watch(ksbs, (newArray) => {
+  ksbList.value = newArray;
+});
+
 </script>
 
 <template>
   <div class="container">
     <button @click="logout">Logout</button>
   </div>
-  <AddKsb/>
-  <KsbList :data="ksbs"></KsbList>
+  <button @click="handleSortBy('theme')">Sort by: theme</button>
+
+  <AddKsb />
+  <KsbList :data="ksbList"></KsbList>
 </template>
 <style>
-
 .container {
   padding-top: 20px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
 }
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;

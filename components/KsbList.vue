@@ -1,34 +1,36 @@
 <script setup lang="ts">
 import type { Ksb } from '../types'
 const props = defineProps<{
-
   data: Ksb[]
 }>();
 
-
-
-const remove = async (id: string) => {
+const handleRemove = async (id: string) => {
   await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   refreshNuxtData();
-
 };
+
 </script>
 
 
 <template>
-  <div class="table-padding">
+
+<div class="table-padding">
     <table>
       <caption>Knowledge, Skills and Behaviours</caption>
       <tbody>
         <tr>
+          <th>Edit KSB</th>
           <th>KSB Type</th>
           <th>KSB Code</th>
           <th>KSB Description</th>
           <th>KSB was last updated at:</th>
           <th>KSB theme</th>
+          <th>Delete KSB</th>
+
 
         </tr>
         <tr v-for="(row, index) in props.data">
+         
           <td>{{ row.type }}</td>
           <td>{{ row.code }}</td>
           <td>{{ row.description }}</td>
@@ -36,7 +38,7 @@ const remove = async (id: string) => {
           <td>{{ row.theme }}</td>
 
 
-          <td><button :aria-label="`delete-id-${index}`" @click="remove(row.id)">Delete</button>
+          <td><button :aria-label="`delete-id-${index}`" @click="handleRemove(row.id)">Delete</button>
           </td>
 
         </tr>
@@ -51,8 +53,6 @@ caption {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   padding-bottom: 5px;
   padding-top: 10px;
-
-
 }
 
 .table-padding {
@@ -72,8 +72,8 @@ tbody tr {
 }
 
 table {
-  background-color: #ff33cc;
+  background-color: #d96125;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-
 }
+
 </style>
