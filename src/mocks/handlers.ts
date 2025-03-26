@@ -1,6 +1,8 @@
 import { http, HttpResponse } from "msw";
 import type { Ksb, KsbRequestData } from "../../types";
-let ksbs = [
+const crypto = require('crypto');
+
+let initialKsbs = [
   {
     id: "d9385487-94de-484b-8f0c-079d365815f9",
     type: "Knowledge",
@@ -26,6 +28,9 @@ let ksbs = [
     theme: "code quality",
   },
 ];
+
+let ksbs = [...initialKsbs]
+
 export const handlers = [
   http.get("http://35.176.157.141:5000/ksbs", ({ request }) => {
     return HttpResponse.json(ksbs);
@@ -37,21 +42,34 @@ export const handlers = [
   }),
 
   http.post("http://35.176.157.141:5000/ksbs/:type", async ({ request, params }) => {
-    console.log( "Type")
 
     const request_data = (await request.json()) as KsbRequestData;
-    console.log(params.type, "Type")
+
     const { code, description, theme } = request_data;
 
     const new_ksb: Ksb = {
-      id: "d9385487-94de-484b-8f0c-079d365815f7",
+      id: crypto.randomUUID(),
       type: params.type,
       code: code,
       description: description,
-      updated_at: "Wed, 14 Mar 2025 12:45:39 GMT",
+      updated_at:  new Date().toUTCString(),
       theme: theme,
     };
     ksbs.push(new_ksb);
     return HttpResponse.json(new_ksb, { status: 201 });
   }),
+  // http.put("http://35.176.157.141:5000/:id", async ({ request, params }) => {
+  //   const request_data = (await request.json())
+  //   const { type } = request_data;
+
+  //   ksbs[1].type = type
+  //   console.log(ksbs)
+
+  //   return HttpResponse.json({ status: 200 });
+
+ 
+  // })
 ];
+
+
+export {ksbs, initialKsbs}
