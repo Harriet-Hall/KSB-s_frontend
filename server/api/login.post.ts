@@ -1,5 +1,5 @@
 import { z } from 'zod'
-
+const config = useRuntimeConfig()
 const bodySchema = z.object({
   email: z.string().email(),
   password: z.string().min(8)
@@ -8,21 +8,23 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
   const { email, password } = await readValidatedBody(event, bodySchema.parse)
 
-  if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-
+  if (email === config.public.adminEmail && password === config.public.adminPassword) {
+ 
     await setUserSession(event, {
       user: {
-        name: 'John Doe full access'
+        name: 'John Doe full access',
+        role: 'admin'
       }
     })
     return {}
   }
 
-  if (email === process.env.USER_EMAIL && password === process.env.USER_PASSWORD) {
+  if (email === config.public.userEmail && password === config.public.userPassword) {
 
     await setUserSession(event, {
       user: {
-        name: 'John Doe restricted access'
+        name: 'John Doe restricted access', 
+        role: 'user'
       }
     })
     return {}

@@ -2,7 +2,8 @@
 import _ from "lodash";
 
 definePageMeta({
-  middleware: ["authenticated"],
+  middleware: ["authenticated", "role"],
+  roles: ['admin']
 });
 const { clear: clearSession } = useUserSession();
 

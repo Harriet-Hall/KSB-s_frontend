@@ -2,8 +2,9 @@
 <script setup>
 
 definePageMeta({
-  middleware: ['authenticated'],
-})
+  middleware: ["authenticated", "role"],
+  roles: ['user']
+});
 const { user, clear: clearSession } = useUserSession()
 
 async function logout() {
