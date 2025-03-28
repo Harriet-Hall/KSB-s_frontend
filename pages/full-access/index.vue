@@ -3,7 +3,7 @@ import _ from "lodash";
 
 definePageMeta({
   middleware: ["authenticated", "role"],
-  roles: ['admin']
+  roles: ["admin"],
 });
 const { clear: clearSession } = useUserSession();
 
@@ -17,13 +17,16 @@ const { data: ksbs } = await useAPI("/ksbs");
 const ksbList = ref(ksbs.value);
 
 const handleSortBy = async (property) => {
-  return (ksbList.value = _.orderBy(ksbList.value, [property], ["asc"]));
+  if (property == "updated-at") {
+    ksbList.value = ksbs.value;
+  } else {
+    return (ksbList.value = _.orderBy(ksbList.value, [property], ["asc"]));
+  }
 };
 
 watch(ksbs, (newArray) => {
   ksbList.value = newArray;
 });
-
 </script>
 
 <template>
@@ -31,6 +34,7 @@ watch(ksbs, (newArray) => {
     <button @click="logout">Logout</button>
   </div>
   <button @click="handleSortBy('theme')">Sort by: theme</button>
+  <button @click="handleSortBy('updated-at')">Sort by: last updated</button>
 
   <AddKsb />
   <KsbList :data="ksbList"></KsbList>
@@ -40,6 +44,7 @@ watch(ksbs, (newArray) => {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;

@@ -16,7 +16,7 @@ let initialKsbs = [
     type: "Skill",
     code: 3,
     description: "skill description",
-    updated_at: "Wed, 13 Mar 2025 12:45:39 GMT",
+    updated_at: "Thu, 13 Mar 2025 12:45:39 GMT",
     theme: "operability",
   },
   {
@@ -24,7 +24,7 @@ let initialKsbs = [
     type: "Behaviour",
     code: 2,
     description: "behaviour description",
-    updated_at: "Wed, 14 Mar 2025 12:45:39 GMT",
+    updated_at: "Fri, 14 Mar 2025 12:45:39 GMT",
     theme: "code quality",
   },
 ];
