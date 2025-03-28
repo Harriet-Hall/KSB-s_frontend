@@ -18,7 +18,7 @@ afterEach(() => {
 
 describe("KsbPage", () => {
   const user = userEvent.setup();
-  it("should call the GET endpoint and return ksbs", async () => {
+  it("should display a list of ksbs", async () => {
     await renderSuspended(KsbPage);
     const rows = screen.getAllByRole("row");
     expect(rows.length).toBe(4);
@@ -26,7 +26,7 @@ describe("KsbPage", () => {
     expect(screen.getByText("skill description")).toBeDefined();
     expect(screen.getByText("behaviour description")).toBeDefined();
   });
-  it("should call the DELETE endpoint delete a ksb", async () => {
+  it("should allow users to delete a ksb", async () => {
     await renderSuspended(KsbPage);
     const rows = screen.getAllByRole("row");
     expect(rows.length).toBe(4);
@@ -36,7 +36,7 @@ describe("KsbPage", () => {
       expect(screen.getAllByRole("row")).toHaveLength(3);
     });
   }),
-    it("should call the POST endpoint and add a ksb", async () => {
+    it("should allow users to add a ksb", async () => {
       await renderSuspended(KsbPage);
       const rows = screen.getAllByRole("row");
       expect(rows.length).toBe(4);
@@ -63,6 +63,10 @@ describe("KsbPage", () => {
       expect(screen.getByText("Test description")).toBeDefined();
     });
 
+  it("should allow users to update a ksb", async () => {
+
+  });
+
   it("should allow users to sort ksbs by theme", async () => {
     await renderSuspended(KsbPage);
     const user = userEvent.setup();
@@ -82,21 +86,28 @@ describe("KsbPage", () => {
     it.only("should allow users to sort ksbs by last updated", async () => {
       await renderSuspended(KsbPage);
       const user = userEvent.setup();
-      
+
       await user.click(screen.getByRole("button", { name: "Sort by: theme" }));
-     
+
       const rows = screen.getAllByRole("row");
 
       expect(rows[1].getHTML()).toContain("Wed, 12 Mar 2025 12:45:39 GMT");
       expect(rows[2].getHTML()).toContain("Fri, 14 Mar 2025 12:45:39 GMT");
       expect(rows[3].getHTML()).toContain("Thu, 13 Mar 2025 12:45:39 GMT");
-      
-      await user.click(screen.getByRole("button", { name: "Sort by: last updated" }));
-      
-     
+
+      await user.click(
+        screen.getByRole("button", { name: "Sort by: last updated" })
+      );
+
       const sortedRows = screen.getAllByRole("row");
-      expect(sortedRows[1].getHTML()).toContain("Wed, 12 Mar 2025 12:45:39 GMT");
-      expect(sortedRows[2].getHTML()).toContain("Thu, 13 Mar 2025 12:45:39 GMT");
-      expect(sortedRows[3].getHTML()).toContain("Fri, 14 Mar 2025 12:45:39 GMT");
+      expect(sortedRows[1].getHTML()).toContain(
+        "Wed, 12 Mar 2025 12:45:39 GMT"
+      );
+      expect(sortedRows[2].getHTML()).toContain(
+        "Thu, 13 Mar 2025 12:45:39 GMT"
+      );
+      expect(sortedRows[3].getHTML()).toContain(
+        "Fri, 14 Mar 2025 12:45:39 GMT"
+      );
     });
 });
