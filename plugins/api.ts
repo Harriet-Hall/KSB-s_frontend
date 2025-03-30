@@ -1,7 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
 
   const api = $fetch.create({
-    baseURL: 'http://35.176.157.141:5000/',
+    baseURL: 'http://18.130.252.77:5000/',
 
   })
   return {

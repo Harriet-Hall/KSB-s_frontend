@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
-import type { Ksb, KsbRequestData } from "../../types";
+import type { Ksb, KsbPostRequestData, KsbUpdateRequestData } from "../../types";
+import { initial } from "lodash";
 const crypto = require('crypto');
 
 let initialKsbs = [
@@ -32,18 +33,18 @@ let initialKsbs = [
 let ksbs = [...initialKsbs]
 
 export const handlers = [
-  http.get("http://35.176.157.141:5000/ksbs", ({ request }) => {
+  http.get("http://18.130.252.77:5000/ksbs", ({ request }) => {
     return HttpResponse.json(ksbs);
   }),
 
-  http.delete("http://35.176.157.141:5000/ksbs/:id", ({ params }) => {
+  http.delete("http://18.130.252.77:5000/ksbs/:id", ({ params }) => {
     ksbs = ksbs.filter((ksb) => ksb.id != params.id);
     return HttpResponse.json({}, { status: 204 });
   }),
 
-  http.post("http://35.176.157.141:5000/ksbs/:type", async ({ request, params }) => {
+  http.post("http://18.130.252.77:5000/ksbs/:type", async ({ request, params }) => {
 
-    const request_data = (await request.json()) as KsbRequestData;
+    const request_data = (await request.json()) as KsbPostRequestData;
 
     const { code, description, theme } = request_data;
 
@@ -58,17 +59,22 @@ export const handlers = [
     ksbs.push(new_ksb);
     return HttpResponse.json(new_ksb, { status: 201 });
   }),
-  // http.put("http://35.176.157.141:5000/:id", async ({ request, params }) => {
-  //   const request_data = (await request.json())
-  //   const { type } = request_data;
+  http.put("http://18.130.252.77:5000/:id", async ({ request, params }) => {
 
-  //   ksbs[1].type = type
-  //   console.log(ksbs)
+    const request_data = (await request.json())
+    const { code  } = request_data as KsbUpdateRequestData
 
-  //   return HttpResponse.json({ status: 200 });
+
+    for(const i in initialKsbs){
+      if(initialKsbs[i].id == params.id){
+        initialKsbs[i].code = code
+      }
+    }
+
+    return HttpResponse.json(initialKsbs, { status: 200 });
 
  
-  // })
+  })
 ];
 
 
