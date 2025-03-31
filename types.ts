@@ -20,3 +20,11 @@ export type Ksb = {
     description: string;
   }
   
+  import "./node_modules/nuxt-auth-utils/dist/runtime/types/session.d.ts"; 
+
+  declare module "./node_modules/nuxt-auth-utils/dist/runtime/types/session.d.ts" {
+    interface User {
+      role?: string;
+      name?:string;
+    }
+  }
