@@ -5,6 +5,7 @@ export type Ksb = {
   description: string;
   updated_at: string;
   theme: string;
+  isModified?: boolean;
   }
 
   export interface KsbPostRequestData {

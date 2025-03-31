@@ -15,7 +15,7 @@ const handleRemove = async (id: string) => {
 
 const handleEdit = async (index: number) => {
   const ksb = editableKsbs.value[index]
-
+  console.log({ksb})
   try {
     await useAPI(`/ksbs/${ksb.id}`, {
       method: "PUT",
@@ -27,7 +27,8 @@ const handleEdit = async (index: number) => {
     });
 
     refreshNuxtData();
-
+    ksb.isModified = false
+    
   } catch (error) {
     console.error("Error adding KSB:", error);
   }
@@ -49,6 +50,7 @@ const update = async (e: Event, index: number, attribute: string) => {
     } else if (attribute === 'description') {
       ksb.description = value;
     }
+    ksb.isModified = true
 
   } catch (error) {
     console.error("Error adding KSB:", error);
@@ -73,8 +75,8 @@ const update = async (e: Event, index: number, attribute: string) => {
           <th>KSB theme</th>
           <th>Delete KSB</th>
         </tr>
-        <tr v-for="(row, index) in props.data">
-          <td><button :aria-label="`update-id-${index}`" @click="handleEdit(index)">Update</button></td>
+        <tr v-for="(row, index) in editableKsbs">
+          <td><button :aria-label="`update-id-${index}`"  :disabled="!editableKsbs[index].isModified"  @click="handleEdit(index)">Update</button></td>
           <td :data-testid="`type-id-${index}`" contenteditable="true" @input="update($event, index, 'type')">{{
             row.type }}</td>
           <td :data-testid="`code-id-${index}`" contenteditable="true" @input="update($event, index, 'code')">{{
