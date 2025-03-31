@@ -1,6 +1,6 @@
 export type Ksb = {
   id: string;  
-  type: string;
+  type: any;
   code: number; 
   description: string;
   updated_at: string;
