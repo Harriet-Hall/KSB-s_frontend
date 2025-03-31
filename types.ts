@@ -7,9 +7,15 @@ export type Ksb = {
   theme: string;
   }
 
-  export interface KsbRequestData {
+  export interface KsbPostRequestData {
     code: number;
     description: string;
     theme: string;
+  }
+  
+  export interface KsbUpdateRequestData {
+    type: string
+    code: number;
+    description: string;
   }
   
