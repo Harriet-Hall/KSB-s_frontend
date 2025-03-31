@@ -6,6 +6,10 @@ const props = defineProps<{
 
 const editableKsbs = ref<Ksb[]>([...props.data])
 
+watch(() => props.data, (newData) =>{
+  editableKsbs.value = [...newData]
+})
+
 const handleRemove = async (id: string) => {
   await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   refreshNuxtData();
@@ -15,7 +19,7 @@ const handleRemove = async (id: string) => {
 
 const handleEdit = async (index: number) => {
   const ksb = editableKsbs.value[index]
-  console.log({ksb})
+
   try {
     await useAPI(`/ksbs/${ksb.id}`, {
       method: "PUT",
