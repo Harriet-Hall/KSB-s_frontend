@@ -10,6 +10,7 @@ watch(() => props.data, (newData) =>{
   editableKsbs.value = [...newData]
 })
 
+
 const handleRemove = async (id: string) => {
   await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   refreshNuxtData();
@@ -75,7 +76,7 @@ const update = async (e: Event, index: number, attribute: string) => {
           <th>KSB Type</th>
           <th>KSB Code</th>
           <th>KSB Description</th>
-          <th>KSB was last updated at:</th>
+          <th>KSB Last updated</th>
           <th>KSB theme</th>
           <th>Delete KSB</th>
         </tr>
