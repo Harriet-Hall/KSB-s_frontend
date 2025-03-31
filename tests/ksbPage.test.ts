@@ -139,7 +139,7 @@ describe("KsbPage", () => {
     it("should allow users to sort ksbs by last updated", async () => {
       await renderSuspended(KsbPage);
       const user = userEvent.setup();
-
+      //unsort the ksbs as they are sorted by last updated by the API
       await user.click(screen.getByRole("button", { name: "Sort by: theme" }));
 
       const rows = screen.getAllByRole("row");
@@ -147,7 +147,7 @@ describe("KsbPage", () => {
       expect(rows[1].getHTML()).toContain("Wed, 12 Mar 2025 12:45:39 GMT");
       expect(rows[2].getHTML()).toContain("Fri, 14 Mar 2025 12:45:39 GMT");
       expect(rows[3].getHTML()).toContain("Thu, 13 Mar 2025 12:45:39 GMT");
-
+      //sort ksbs
       await user.click(
         screen.getByRole("button", { name: "Sort by: last updated" })
       );
