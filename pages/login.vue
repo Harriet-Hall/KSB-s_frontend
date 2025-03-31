@@ -13,10 +13,10 @@ async function login() {
   .then(async () => {
     await refreshSession()
     
-    if( credentials.email == config.public.adminEmail){
+    if( credentials.email == config.adminEmail){
       await navigateTo('/full-access')
     }
-    else if (credentials.email == config.public.userEmail) {
+    else if (credentials.email == config.userEmail) {
       await navigateTo('/restricted-access')
     }
   })

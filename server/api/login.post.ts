@@ -8,7 +8,7 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
   const { email, password } = await readValidatedBody(event, bodySchema.parse)
 
-  if (email === config.public.adminEmail && password === config.public.adminPassword) {
+  if (email === config.adminEmail && password === config.adminPassword) {
  
     await setUserSession(event, {
       user: {
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     return {}
   }
 
-  if (email === config.public.userEmail && password === config.public.userPassword) {
+  if (email === config.userEmail && password === config.userPassword) {
 
     await setUserSession(event, {
       user: {

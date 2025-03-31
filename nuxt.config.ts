@@ -7,12 +7,10 @@ export default defineNuxtConfig({
   },
   modules: ['@nuxt/test-utils/module', 'nuxt-auth-utils', '@nuxt/ui'],
   runtimeConfig: {
-    public: {
       adminEmail: process.env.ADMIN_EMAIL,
       adminPassword: process.env.ADMIN_PASSWORD,
       userEmail: process.env.USER_EMAIL,
       userPassword: process.env.USER_PASSWORD 
     },
 
-  }
 })

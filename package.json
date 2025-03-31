@@ -40,7 +40,6 @@
   },
   "msw": {
     "workerDirectory": [
-      "publicz",
       "public"
     ]
   }
