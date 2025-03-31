@@ -73,9 +73,6 @@ tbody tr:nth-child(even) {
   background-color: #e495e4;
 }
 
-tbody tr {
-  background-image: url(noise.png);
-}
 
 table {
   background-color: #ff7edf;
