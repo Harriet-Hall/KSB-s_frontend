@@ -4,17 +4,63 @@ const props = defineProps<{
   data: Ksb[]
 }>();
 
+const editableKsbs = ref<Ksb[]>([...props.data])
+
 const handleRemove = async (id: string) => {
   await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   refreshNuxtData();
 };
+
+
+
+const handleEdit = async (index: number) => {
+  const ksb = editableKsbs.value[index]
+
+  try {
+    await useAPI(`/ksbs/${ksb.id}`, {
+      method: "PUT",
+      body: {
+        type: ksb.type,
+        code: ksb.code,
+        description: ksb.description
+      },
+    });
+
+    refreshNuxtData();
+
+  } catch (error) {
+    console.error("Error adding KSB:", error);
+  }
+
+}
+
+const update = async (e: Event, index: number, attribute: string) => {
+  const target = e.target as HTMLElement
+  const value = target.innerHTML
+
+  const ksb = editableKsbs.value[index];
+
+  try {
+
+    if (attribute === 'code') {
+      ksb.code = +(value);
+    } else if (attribute === 'type') {
+      ksb.type = value;
+    } else if (attribute === 'description') {
+      ksb.description = value;
+    }
+
+  } catch (error) {
+    console.error("Error adding KSB:", error);
+  }
+}
 
 </script>
 
 
 <template>
 
-<div class="table-padding">
+  <div class="table-padding">
     <table>
       <caption>Knowledge, Skills and Behaviours</caption>
       <tbody>
@@ -26,14 +72,15 @@ const handleRemove = async (id: string) => {
           <th>KSB was last updated at:</th>
           <th>KSB theme</th>
           <th>Delete KSB</th>
-
-
         </tr>
         <tr v-for="(row, index) in props.data">
-         
-          <td>{{ row.type }}</td>
-          <td>{{ row.code }}</td>
-          <td>{{ row.description }}</td>
+          <td><button :aria-label="`update-id-${index}`" @click="handleEdit(index)">Update</button></td>
+          <td :data-testid="`type-id-${index}`" contenteditable="true" @input="update($event, index, 'type')">{{
+            row.type }}</td>
+          <td :data-testid="`code-id-${index}`" contenteditable="true" @input="update($event, index, 'code')">{{
+            row.code }}</td>
+          <td :data-testid="`description-id-${index}`" contenteditable="true"
+            @input="update($event, index, 'description')">{{ row.description }}</td>
           <td>{{ row.updated_at }}</td>
           <td>{{ row.theme }}</td>
 
@@ -75,5 +122,4 @@ table {
   background-color: #d96125;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
 </style>

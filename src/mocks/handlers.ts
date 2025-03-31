@@ -1,6 +1,5 @@
 import { http, HttpResponse } from "msw";
 import type { Ksb, KsbPostRequestData, KsbUpdateRequestData } from "../../types";
-import { initial } from "lodash";
 const crypto = require('crypto');
 
 let initialKsbs = [
@@ -57,25 +56,22 @@ export const handlers = [
       theme: theme,
     };
     ksbs.push(new_ksb);
-    return HttpResponse.json(new_ksb, { status: 201 });
+    return HttpResponse.json(ksbs, { status: 201 });
   }),
-  http.put("http://18.130.252.77:5000/:id", async ({ request, params }) => {
+  http.put("http://18.130.252.77:5000/ksbs/:id", async ({ request, params }) => {
 
-    const request_data = (await request.json())
-    const { code  } = request_data as KsbUpdateRequestData
+  const request_data = await request.json();
+  const { type, code, description } = request_data as KsbUpdateRequestData
 
-
-    for(const i in initialKsbs){
-      if(initialKsbs[i].id == params.id){
-        initialKsbs[i].code = code
-      }
+  for (let i in ksbs) {
+    if (ksbs[i].id === params.id) {
+      ksbs[i].type = type;
+      ksbs[i].code = code;
+      ksbs[i].description = description;
+      return HttpResponse.json(ksbs[i], { status: 200 }); 
     }
-
-    return HttpResponse.json(initialKsbs, { status: 200 });
-
- 
+  }
   })
 ];
-
 
 export {ksbs, initialKsbs}
