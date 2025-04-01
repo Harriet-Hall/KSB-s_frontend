@@ -6,12 +6,14 @@ const credentials = reactive({
   password: '',
 })
 async function login() {
+  console.log("inside login")
   $fetch('/api/login', {
     method: 'POST',
     body: credentials
   })
   .then(async () => {
     await refreshSession()
+  console.log("inside .then")
     
     if( credentials.email == config.adminEmail){
       await navigateTo('/full-access')
