@@ -6,31 +6,41 @@ const bodySchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await readValidatedBody(event, bodySchema.parse)
 
-  if (email === config.adminEmail && password === config.adminPassword) {
- 
-    await setUserSession(event, {
-      user: {
-        name: 'John Doe full access',
-        role: 'admin'
-      }
+  try{
+
+
+    const { email, password } = await readValidatedBody(event, bodySchema.parse)
+
+    if (email === config.private.adminEmail && password === config.private.adminPassword) {
+   
+      await setUserSession(event, {
+        user: {
+          name: 'John Doe full access',
+          role: 'admin'
+        }
+      })
+      return {}
+    }
+  
+    if (email === config.private.userEmail && password === config.private.userPassword) {
+  
+      await setUserSession(event, {
+        user: {
+          name: 'John Doe restricted access', 
+          role: 'user'
+        }
+      })
+      return {}
+    }
+  } catch{
+
+    console.log("Admin Email:", config.private.adminEmail);
+    console.log("Admin Password:", config.private.adminPassword);
+    throw createError({
+      statusCode: 401,
+      message: 'Bad credentials'
+  
     })
-    return {}
   }
-
-  if (email === config.userEmail && password === config.userPassword) {
-
-    await setUserSession(event, {
-      user: {
-        name: 'John Doe restricted access', 
-        role: 'user'
-      }
-    })
-    return {}
-  }
-  throw createError({
-    statusCode: 401,
-    message: 'Bad credentials'
-  })
 })

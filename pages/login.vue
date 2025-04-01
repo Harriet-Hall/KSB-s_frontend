@@ -14,15 +14,15 @@ async function login() {
   .then(async () => {
     await refreshSession()
     
-    console.log(credentials.email, config.adminEmail, "credentials")
-    if( credentials.email == config.adminEmail){
+    if( credentials.email == config.private.adminEmail){
       await navigateTo('/full-access')
     }
-    else if (credentials.email == config.userEmail) {
+    else if (credentials.email == config.private.userEmail) {
       await navigateTo('/restricted-access')
     }
   })
-  .catch(() => alert('Bad credentials'))
+  .catch(() =>{ 
+    alert('Bad credentials')})
 }
 </script>
 
