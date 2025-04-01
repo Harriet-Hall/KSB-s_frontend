@@ -1,8 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
 
   const api = $fetch.create({
-    baseURL: 'http://18.130.252.77:5000/',
-
+    baseURL: 'https://300hyzvyda.execute-api.eu-west-2.amazonaws.com/prod/',
   })
   return {
     provide: {
