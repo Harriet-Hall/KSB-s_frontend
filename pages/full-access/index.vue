@@ -30,6 +30,10 @@ watch(ksbs, (newArray) => {
 </script>
 
 <template>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  </head>
+
   <div class="container">
     <button @click="logout">Logout</button>
   </div>
