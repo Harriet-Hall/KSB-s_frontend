@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+
 const { fetch: refreshSession } = useUserSession()
+
 const credentials = reactive({
   email: '',
   password: '',
@@ -11,13 +12,16 @@ async function login() {
     method: 'POST',
     body: credentials
   })
+
   .then(async () => {
+    const {user} = useUserSession()
     await refreshSession()
-    
-    if( credentials.email == config.private.adminEmail){
+
+    console.log(credentials ,"api res")
+    if( user.value?.role == "admin"){
       await navigateTo('/full-access')
     }
-    else if (credentials.email == config.private.userEmail) {
+    else if ( user.value?.role == "user") {
       await navigateTo('/restricted-access')
     }
   })
