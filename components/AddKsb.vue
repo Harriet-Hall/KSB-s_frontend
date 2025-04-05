@@ -3,7 +3,7 @@ const selectedType = ref<string | null>(null);
 const types = ["Knowledge", "Skill", "Behaviour"];
 
 const code = ref<number | null>(null);
-const description = ref<string | null>(null);
+const description = ref("");
 
 const selectedTheme = ref<string | null>(null);
 const themes = [
