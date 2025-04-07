@@ -1,10 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-
 import KsbList from "../components/KsbList.vue";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
-import { screen, waitFor } from "@testing-library/vue";
+import { screen } from "@testing-library/vue";
 import type { Ksb } from "../types.ts";
-import { handleRemove } from "~/components/KsbList.vue";
 import { mount } from "@vue/test-utils";
 
 describe("Ksb homepage", async () => {
