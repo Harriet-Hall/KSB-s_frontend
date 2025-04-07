@@ -73,17 +73,47 @@ describe("Ksb homepage", async () => {
     vi.mock("/composables/useAPI.ts", () => ({
       useAPI: vi.fn(),
     }));
-
-    const id = "1";
-
-    await handleRemove(id);
+    const wrapper = mount(KsbList, {
+      props: { data: MOCKED_DATA },
+    });
+    const removeButton = wrapper.get('[aria-label="delete-id-0"]')
+    await removeButton.trigger("click");
+ 
 
     expect(useAPI).toHaveBeenCalledWith(
-      `/ksbs/${id}`,
+      `/ksbs/d9385487-94de-484b-8f0c-079d365815f9`,
       expect.objectContaining({
         method: "DELETE",
       })
     );
   });
-  
+  it("should call handleEdit when the update button is clicked", async () => {
+    vi.mock("/composables/useAPI.ts", () => ({
+      useAPI: vi.fn(),
+    }));
+
+    const wrapper = mount(KsbList, {
+      props: { data: MOCKED_DATA },
+    });
+    const descriptionTableCell = wrapper.get(
+      '[data-testid="description-id-0"]'
+    );
+    descriptionTableCell.element.innerHTML = "Test description";
+    await descriptionTableCell.trigger("input");
+    const updateButton = wrapper.get('[aria-label="update-id-0"]');
+
+    await updateButton.trigger("click");
+
+      expect(useAPI).toHaveBeenCalledWith(
+        "/ksbs/d9385487-94de-484b-8f0c-079d365815f9",
+        expect.objectContaining({
+          method: "PUT",
+          body: {
+            type: "Knowledge",
+            code: 2,
+            description: "Test description",
+          },
+        })
+      );
+  });
 });
