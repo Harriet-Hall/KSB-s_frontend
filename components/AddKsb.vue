@@ -78,7 +78,7 @@ const addKsb = async () => {
       </select>
     </span>
     <span>
-      <button @click="addKsb()">Add KSB</button>
+      <button id="addKsbButton" @click="addKsb()">Add KSB</button>
     </span>
 </div>
 </template>
