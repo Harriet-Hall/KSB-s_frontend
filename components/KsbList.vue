@@ -6,7 +6,7 @@ const props = defineProps<{
 
 const editableKsbs = ref<Ksb[]>([...props.data])
 
-watch(() => props.data, (newData) =>{
+watch(() => props.data, (newData) => {
   editableKsbs.value = [...newData]
 })
 
@@ -40,7 +40,7 @@ const handleEdit = async (index: number) => {
 
 }
 
-const update = async (e: Event, index: number, attribute: string) => {
+const handleUpdate = async (e: Event, index: number, attribute: string) => {
   const target = e.target as HTMLElement
   const value = target.innerHTML
 
@@ -81,13 +81,14 @@ const update = async (e: Event, index: number, attribute: string) => {
           <th>Delete KSB</th>
         </tr>
         <tr v-for="(row, index) in editableKsbs">
-          <td><button :aria-label="`update-id-${index}`"  :disabled="!editableKsbs[index].isModified"  @click="handleEdit(index)">Update</button></td>
-          <td :data-testid="`type-id-${index}`" contenteditable="true" @input="update($event, index, 'type')">{{
+          <td><button :aria-label="`update-id-${index}`" :disabled="!editableKsbs[index].isModified"
+              @click="handleEdit(index)">Update</button></td>
+          <td :data-testid="`type-id-${index}`" contenteditable="true" @input="handleUpdate($event, index, 'type')">{{
             row.type }}</td>
-          <td :data-testid="`code-id-${index}`" contenteditable="true" @input="update($event, index, 'code')">{{
+          <td :data-testid="`code-id-${index}`" contenteditable="true" @input="handleUpdate($event, index, 'code')">{{
             row.code }}</td>
           <td :data-testid="`description-id-${index}`" contenteditable="true"
-            @input="update($event, index, 'description')">{{ row.description }}</td>
+            @input="handleUpdate($event, index, 'description')">{{ row.description }}</td>
           <td>{{ row.updated_at }}</td>
           <td>{{ row.theme }}</td>
 
