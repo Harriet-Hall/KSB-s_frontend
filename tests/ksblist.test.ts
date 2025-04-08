@@ -37,8 +37,8 @@ describe("Ksb homepage", async () => {
     expect(screen.getByText("behaviour description")).toBeDefined();
 
     expect(screen.getByText("Wed, 12 Mar 2025 12:45:39 GMT")).toBeDefined();
-    expect(screen.getByText("Wed, 13 Mar 2025 12:45:39 GMT")).toBeDefined();
-    expect(screen.getByText("Wed, 14 Mar 2025 12:45:39 GMT")).toBeDefined();
+    expect(screen.getByText("Thu, 13 Mar 2025 12:45:39 GMT")).toBeDefined();
+    expect(screen.getByText("Fri, 14 Mar 2025 12:45:39 GMT")).toBeDefined();
 
     expect(screen.getAllByText("code quality")).toBeDefined();
     expect(screen.getAllByText("data persistence")).toBeDefined();
