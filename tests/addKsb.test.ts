@@ -9,7 +9,7 @@ describe("Ksb homepage", async () => {
     vi.clearAllMocks();
   }); 
 
-  it("call addKsb function when the 'add ksb' button is clicked", async () => {
+  it("should call addKsb function when the 'add ksb' button is clicked", async () => {
 
     vi.mock("/composables/useAPI.ts", () => ({
       useAPI: vi.fn(),
