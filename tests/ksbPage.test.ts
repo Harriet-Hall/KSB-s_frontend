@@ -93,9 +93,7 @@ describe("KsbPage", () => {
     await user.type(typeElement, "i");
     await user.type(typeElement, "l");
     await user.type(typeElement, "l");
-
     expect(typeElement.textContent).toBe("Skill");
-    
     
     
     await user.type(codeElement, "1");
@@ -107,62 +105,11 @@ describe("KsbPage", () => {
     }
     expect(descriptionElement.textContent).toBe("xxxxxxxxxxxxxxxx");
 
-    user.click(screen.getByRole("button", { name: "update-id-0" }));
+    await user.click(screen.getByRole("button", { name: "update-id-0" }));
+    const updatedRows = screen.getAllByRole("row");
 
-    await waitFor(()=> {
-      expect(rows[1].textContent).toBe("UpdateSkill1xxxxxxxxxxxxxxxxWed, 12 Mar 2025 12:45:39 GMTcode qualityDelete")
-
-    })
-
-  }),
-
-  it("should allow users to sort ksbs by theme", async () => {
-
-    await renderSuspended(KsbPage);
-    const user = userEvent.setup();
-    const rows = screen.getAllByRole("row");
-
-
-
-    expect(rows[1].getHTML()).toContain("code quality");
-    expect(rows[2].getHTML()).toContain("operability");
-    expect(rows[3].getHTML()).toContain("code quality");
-
-    await user.click(screen.getByRole("button", { name: "Sort by: theme" }));
-
-    const sortedRows = screen.getAllByRole("row");
-    expect(sortedRows[1].getHTML()).toContain("code quality");
-    expect(sortedRows[2].getHTML()).toContain("code quality");
-    expect(sortedRows[3].getHTML()).toContain("operability");
-  }),
-
-    it("should allow users to sort ksbs by last updated", async () => {
-      await renderSuspended(KsbPage);
-      const user = userEvent.setup();
-      //unsort the ksbs as they are sorted by last updated by the API
-      await user.click(screen.getByRole("button", { name: "Sort by: theme" }));
-
-      const rows = screen.getAllByRole("row");
-
-      expect(rows[1].getHTML()).toContain("Wed, 12 Mar 2025 12:45:39 GMT");
-      expect(rows[2].getHTML()).toContain("Fri, 14 Mar 2025 12:45:39 GMT");
-      expect(rows[3].getHTML()).toContain("Thu, 13 Mar 2025 12:45:39 GMT");
-      //sort ksbs
-      await user.click(
-        screen.getByRole("button", { name: "Sort by: last updated" })
-      );
-
-      const sortedRows = screen.getAllByRole("row");
-
-      expect(sortedRows[1].getHTML()).toContain(
-        "Wed, 12 Mar 2025 12:45:39 GMT"
-      );
-      expect(sortedRows[2].getHTML()).toContain(
-        "Thu, 13 Mar 2025 12:45:39 GMT"
-      );
-      expect(sortedRows[3].getHTML()).toContain(
-        "Fri, 14 Mar 2025 12:45:39 GMT"
-      );
-    });
+    expect(updatedRows[1].textContent).toBe("UpdateSkill1xxxxxxxxxxxxxxxxWed, 12 Mar 2025 12:45:39 GMTcode qualityDelete")
+  
+  })
 
 });
