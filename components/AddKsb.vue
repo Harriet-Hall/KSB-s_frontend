@@ -41,7 +41,7 @@ const addKsb = async () => {
     refreshNuxtData();
     selectedType.value = null;
     code.value = null;
-    description.value = null;
+    description.value = "";
     selectedTheme.value = null;
   } catch (error) {
     console.error("Error adding KSB:", error);
