@@ -16,7 +16,7 @@ const { data: ksbs } = await useAPI("/ksbs");
 
 const ksbList = ref(ksbs.value);
 
-const handleSortBy = async (property) => {
+const handleSort = async (property) => {
   if (property == "updated-at") {
     ksbList.value = ksbs.value;
   } else {
@@ -33,8 +33,8 @@ watch(ksbs, (newArray) => {
   <div class="container">
     <button @click="logout">Logout</button>
   </div>
-  <button @click="handleSortBy('theme')">Sort by: theme</button>
-  <button @click="handleSortBy('updated-at')">Sort by: last updated</button>
+  <SortKsbs :data="ksbList" sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
+  <SortKsbs :data="ksbList" sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
 
   <AddKsb />
   <KsbList :data="ksbList"></KsbList>
