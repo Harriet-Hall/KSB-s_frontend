@@ -5,6 +5,7 @@ const props = defineProps<{
 }>();
 
 const editableKsbs = ref<Ksb[]>([...props.data])
+let isModified = false
 
 watch(() => props.data, (newData) => {
   editableKsbs.value = [...newData]
@@ -31,8 +32,8 @@ const handleEdit = async (index: number) => {
       },
     });
 
-    refreshNuxtData();
     ksb.isModified = false
+    refreshNuxtData();
     
   } catch (error) {
     console.error("Error adding KSB:", error);
@@ -42,12 +43,10 @@ const handleEdit = async (index: number) => {
 
 const handleUpdate = async (e: Event, index: number, attribute: string) => {
   const target = e.target as HTMLElement
-  const value = target.innerHTML
-
+  const value = target.textContent!
   const ksb = editableKsbs.value[index];
 
-  try {
-
+  try { 
     if (attribute === 'code') {
       ksb.code = +(value);
     } else if (attribute === 'type') {
@@ -56,12 +55,14 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
       ksb.description = value;
     }
     ksb.isModified = true
-
   } catch (error) {
     console.error("Error adding KSB:", error);
   }
 }
-
+const handleClick = async (index: number) => {
+  const ksb = editableKsbs.value[index];
+  ksb.isModified = true
+}
 </script>
 
 
@@ -83,12 +84,12 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
         <tr v-for="(row, index) in editableKsbs">
           <td><button :aria-label="`update-id-${index}`" :disabled="!editableKsbs[index].isModified"
               @click="handleEdit(index)">Update</button></td>
-          <td :data-testid="`type-id-${index}`" contenteditable="true" @input="handleUpdate($event, index, 'type')">{{
+          <td :data-testid="`type-id-${index}`" contenteditable="true" @blur="handleUpdate($event, index, 'type')" @click="handleClick(index)">{{
             row.type }}</td>
-          <td :data-testid="`code-id-${index}`" contenteditable="true" @input="handleUpdate($event, index, 'code')">{{
+          <td :data-testid="`code-id-${index}`" contenteditable="true" @blur="handleUpdate($event, index, 'code')" @click="handleClick(index)">{{
             row.code }}</td>
           <td :data-testid="`description-id-${index}`" contenteditable="true"
-            @input="handleUpdate($event, index, 'description')">{{ row.description }}</td>
+            @blur="handleUpdate($event, index, 'description')" @click="handleClick(index)">{{ row.description }}</td>
           <td>{{ row.updated_at }}</td>
           <td>{{ row.theme }}</td>
 

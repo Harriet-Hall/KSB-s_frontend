@@ -72,8 +72,8 @@ describe("Ksb homepage", async () => {
     const descriptionTableCell = wrapper.get(
       '[data-testid="description-id-0"]'
     );
-    descriptionTableCell.element.innerHTML = "Test description";
-    await descriptionTableCell.trigger("input");
+    descriptionTableCell.element.textContent = "Test description";
+    await descriptionTableCell.trigger("blur");
     const updateButton = wrapper.get('[aria-label="update-id-0"]');
 
     await updateButton.trigger("click");
