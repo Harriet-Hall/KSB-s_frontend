@@ -89,7 +89,7 @@ describe("Ksb homepage", async () => {
             type: "Knowledge",
             code: 2,
             description: "Test description",
-            is_complete: "false",
+            is_complete: false,
           },
         })
       );

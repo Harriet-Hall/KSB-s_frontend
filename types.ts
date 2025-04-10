@@ -5,7 +5,7 @@ export type Ksb = {
   description: string;
   updated_at: string;
   theme: string;
-  is_complete: string;
+  is_complete: boolean;
   isModified?: boolean;
   }
 
@@ -19,7 +19,7 @@ export type Ksb = {
     type: string
     code: number;
     description: string;
-    is_complete: string;
+    is_complete: boolean;
     
   }
   

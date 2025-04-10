@@ -10,7 +10,7 @@ let initialKsbs = [
     description: "knowledge description",
     updated_at: "Wed, 12 Mar 2025 12:45:39 GMT",
     theme: "code quality",
-    is_complete: "false"
+    is_complete: false
   },
   {
     id: "d9385487-94de-484b-8f0c-079d365815f8",
@@ -19,7 +19,7 @@ let initialKsbs = [
     description: "skill description",
     updated_at: "Thu, 13 Mar 2025 12:45:39 GMT",
     theme: "operability",
-    is_complete: "false"
+    is_complete: false
 
   },
   {
@@ -29,7 +29,7 @@ let initialKsbs = [
     description: "behaviour description",
     updated_at: "Fri, 14 Mar 2025 12:45:39 GMT",
     theme: "code quality",
-    is_complete: "false"
+    is_complete: false
 
   },
 ];
@@ -59,7 +59,7 @@ export const handlers = [
       description: description,
       updated_at:  new Date().toUTCString(),
       theme: theme,
-      is_complete: "false"
+      is_complete: false
     };
     ksbs.push(new_ksb);
     return HttpResponse.json(ksbs, { status: 201 });

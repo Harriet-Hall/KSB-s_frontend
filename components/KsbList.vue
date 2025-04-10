@@ -55,7 +55,9 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
     } else if (attribute === 'description') {
       ksb.description = value;
     } else if (attribute === 'is_complete') {
-      ksb.is_complete = value;
+      const boolValue = Boolean(value)
+      ksb.is_complete = boolValue
+      
     }
     ksb.isModified = true
   } catch (error) {
