@@ -23,6 +23,7 @@ describe("Ksb homepage", async () => {
       "KSB Last updated",
       "KSB theme",
       "Delete KSB",
+      "Is complete"
     ];
     expectedHeaders.forEach((header) => {
       expect(screen.getByText(header)).toBeDefined();
@@ -42,6 +43,8 @@ describe("Ksb homepage", async () => {
 
     expect(screen.getAllByText("code quality")).toBeDefined();
     expect(screen.getAllByText("data persistence")).toBeDefined();
+    expect(screen.getAllByText("false")).toBeDefined();
+
   });
   it("should call handleRemove when the delete button is clicked", async () => {
     vi.mock("/composables/useAPI.ts", () => ({
@@ -86,6 +89,7 @@ describe("Ksb homepage", async () => {
             type: "Knowledge",
             code: 2,
             description: "Test description",
+            is_complete: "false",
           },
         })
       );

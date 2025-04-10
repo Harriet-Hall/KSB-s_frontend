@@ -29,6 +29,8 @@ const { data: ksbs } = await useAPI('/ksbs')
           <th>KSB Description</th>
           <th>KSB was last updated at:</th>
           <th>KSB theme</th>
+          <th>Is complete</th>
+
 
         </tr>
         <tr v-for="(ksb) in ksbs">
@@ -37,6 +39,9 @@ const { data: ksbs } = await useAPI('/ksbs')
           <td>{{ ksb.description }}</td>
           <td>{{ ksb.updated_at }}</td>
           <td>{{ ksb.theme }}</td>
+          <td>{{ ksb.is_complete }}</td>
+
+          
         </tr>
       </tbody>
     </table>

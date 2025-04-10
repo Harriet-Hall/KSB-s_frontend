@@ -5,6 +5,7 @@ export type Ksb = {
   description: string;
   updated_at: string;
   theme: string;
+  is_complete: string;
   isModified?: boolean;
   }
 
@@ -18,6 +19,8 @@ export type Ksb = {
     type: string
     code: number;
     description: string;
+    is_complete: string;
+    
   }
   
   import "./node_modules/nuxt-auth-utils/dist/runtime/types/session.d.ts"; 

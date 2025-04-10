@@ -6,7 +6,6 @@ import KsbPage from "../pages/full-access/index.vue";
 import userEvent from "@testing-library/user-event";
 import { ksbs, initialKsbs } from "../src/mocks/handlers";
 
-
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
 afterAll(() => server.close());
@@ -29,19 +28,17 @@ describe("KsbPage", () => {
     expect(screen.getByText("skill description")).toBeDefined();
     expect(screen.getByText("behaviour description")).toBeDefined();
   }),
+    it("should allow users to delete a ksb", async () => {
+      await renderSuspended(KsbPage);
+      const rows = screen.getAllByRole("row");
+      expect(rows.length).toBe(4);
 
-  it("should allow users to delete a ksb", async () => {
-    await renderSuspended(KsbPage);
-    const rows = screen.getAllByRole("row");
-    expect(rows.length).toBe(4);
+      await user.click(screen.getByRole("button", { name: "delete-id-0" }));
 
-    await user.click(screen.getByRole("button", { name: "delete-id-0" }));
-
-    await waitFor(() => {
-      expect(screen.getAllByRole("row")).toHaveLength(3);
-    });
-  }),
-
+      await waitFor(() => {
+        expect(screen.getAllByRole("row")).toHaveLength(3);
+      });
+    }),
     it("should allow users to add a ksb", async () => {
       await renderSuspended(KsbPage);
 
@@ -64,7 +61,7 @@ describe("KsbPage", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Add KSB" }));
-      
+
       await waitFor(() => {
         expect(screen.getAllByRole("row")).toHaveLength(5);
       });
@@ -72,63 +69,65 @@ describe("KsbPage", () => {
       expect(screen.getAllByText("Test description")).toHaveLength(1);
       expect(screen.getByText("Test description")).toBeDefined();
     }),
+    it("should allow users to update a ksb type", async () => {
+      await renderSuspended(KsbPage);
 
-  it("should allow users to update a ksb type", async () => {
+      const typeElement = screen.getByTestId("type-id-0");
+      typeElement.textContent = "";
 
-    await renderSuspended(KsbPage);
+      await user.type(typeElement, "S");
+      await user.type(typeElement, "k");
+      await user.type(typeElement, "i");
+      await user.type(typeElement, "l");
+      await user.type(typeElement, "l");
 
-    const typeElement = screen.getByTestId("type-id-0");
-    typeElement.textContent = "";
-    
-    await user.type(typeElement, "S");
-    await user.type(typeElement, "k");
-    await user.type(typeElement, "i");
-    await user.type(typeElement, "l");
-    await user.type(typeElement, "l");
+      expect(typeElement.textContent).toBe("Skill");
 
-    expect(typeElement.textContent).toBe("Skill");
+      await user.click(screen.getByRole("button", { name: "update-id-0" }));
+      const updatedRows = screen.getAllByRole("row");
 
-    await user.click(screen.getByRole("button", { name: "update-id-0" }));
-    const updatedRows = screen.getAllByRole("row");
+      expect(updatedRows[1].textContent).toContain("Skill");
+    }),
+    it("should allow users to update a ksb code", async () => {
+      await renderSuspended(KsbPage);
 
-    expect(updatedRows[1].textContent).toContain("Skill")
-  }),
-  
-  it("should allow users to update a ksb code", async () => {
-    
-    await renderSuspended(KsbPage);
-  
-    const codeElement = screen.getByTestId("code-id-0");
+      const codeElement = screen.getByTestId("code-id-0");
 
-    codeElement.textContent = "";
-    await user.type(codeElement, "1")
-    expect(codeElement.textContent).toBe("1");
-    
-    await user.click(screen.getByRole("button", { name: "update-id-0" }));
-    const updatedRows = screen.getAllByRole("row");
+      codeElement.textContent = "";
+      await user.type(codeElement, "1");
+      expect(codeElement.textContent).toBe("1");
 
-    expect(updatedRows[1].textContent).toContain("1")
-  }), 
+      await user.click(screen.getByRole("button", { name: "update-id-0" }));
+      const updatedRows = screen.getAllByRole("row");
 
-  it("should allow users to update a ksb description", async () => {
-    
-    await renderSuspended(KsbPage);
+      expect(updatedRows[1].textContent).toContain("1");
+    }),
+    it("should allow users to update a ksb description", async () => {
+      await renderSuspended(KsbPage);
 
-    const descriptionElement = screen.getByTestId("description-id-0")
-    descriptionElement.textContent = "";
-    
-    for(let i = 0; i <16; i++){
+      const descriptionElement = screen.getByTestId("description-id-0");
+      descriptionElement.textContent = "";
+
+      for (let i = 0; i < 16; i++) {
         await user.type(descriptionElement, "x");
       }
 
       expect(descriptionElement.textContent).toBe("xxxxxxxxxxxxxxxx");
-  
-      
+
       await user.click(screen.getByRole("button", { name: "update-id-0" }));
       const updatedRows = screen.getAllByRole("row");
-      expect(updatedRows[1].textContent).toContain("xxxxxxxxxxxxxxxx")
-    })
-    
-    
-  });
-  
+      expect(updatedRows[1].textContent).toContain("xxxxxxxxxxxxxxxx");
+    }),
+    it("should allow users to update a ksb complete value", async () => {
+      await renderSuspended(KsbPage);
+
+      const completeElement = screen.getByTestId("isComplete-id-0");
+      completeElement.textContent = "";
+      await user.type(completeElement, "true")
+      expect(completeElement.textContent).toBe("true");
+
+      await user.click(screen.getByRole("button", { name: "update-id-0" }));
+      const updatedRows = screen.getAllByRole("row");
+      expect(updatedRows[1].textContent).toContain("xxxxxxxxxxxxxxxx");
+    });
+});

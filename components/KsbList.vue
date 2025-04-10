@@ -28,7 +28,8 @@ const handleEdit = async (index: number) => {
       body: {
         type: ksb.type,
         code: ksb.code,
-        description: ksb.description
+        description: ksb.description,
+        is_complete: ksb.is_complete
       },
     });
 
@@ -53,6 +54,8 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
       ksb.type = value;
     } else if (attribute === 'description') {
       ksb.description = value;
+    } else if (attribute === 'is_complete') {
+      ksb.is_complete = value;
     }
     ksb.isModified = true
   } catch (error) {
@@ -79,6 +82,7 @@ const handleClick = async (index: number) => {
           <th>KSB Description</th>
           <th>KSB Last updated</th>
           <th>KSB theme</th>
+          <th>Is complete</th>
           <th>Delete KSB</th>
         </tr>
         <tr v-for="(row, index) in editableKsbs">
@@ -92,6 +96,8 @@ const handleClick = async (index: number) => {
             @blur="handleUpdate($event, index, 'description')" @click="handleClick(index)">{{ row.description }}</td>
           <td>{{ row.updated_at }}</td>
           <td>{{ row.theme }}</td>
+          <td :data-testid="`isComplete-id-${index}`" contenteditable="true"
+            @blur="handleUpdate($event, index, 'is_complete')" @click="handleClick(index)">{{ row.is_complete }}</td>
 
 
           <td><button :aria-label="`delete-id-${index}`" @click="handleRemove(row.id)">Delete</button>

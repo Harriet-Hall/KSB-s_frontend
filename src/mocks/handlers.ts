@@ -10,6 +10,7 @@ let initialKsbs = [
     description: "knowledge description",
     updated_at: "Wed, 12 Mar 2025 12:45:39 GMT",
     theme: "code quality",
+    is_complete: "false"
   },
   {
     id: "d9385487-94de-484b-8f0c-079d365815f8",
@@ -18,6 +19,8 @@ let initialKsbs = [
     description: "skill description",
     updated_at: "Thu, 13 Mar 2025 12:45:39 GMT",
     theme: "operability",
+    is_complete: "false"
+
   },
   {
     id: "d9385487-94de-484b-8f0c-079d365815f7",
@@ -26,6 +29,8 @@ let initialKsbs = [
     description: "behaviour description",
     updated_at: "Fri, 14 Mar 2025 12:45:39 GMT",
     theme: "code quality",
+    is_complete: "false"
+
   },
 ];
 
@@ -54,6 +59,7 @@ export const handlers = [
       description: description,
       updated_at:  new Date().toUTCString(),
       theme: theme,
+      is_complete: "false"
     };
     ksbs.push(new_ksb);
     return HttpResponse.json(ksbs, { status: 201 });
@@ -61,13 +67,15 @@ export const handlers = [
   http.put("https://m7sq42zktc.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:id", async ({ request, params }) => {
 
   const request_data = await request.json();
-  const { type, code, description } = request_data as KsbUpdateRequestData
+  const { type, code, description, is_complete } = request_data as KsbUpdateRequestData
 
   for (let i in ksbs) {
     if (ksbs[i].id === params.id) {
       ksbs[i].type = type;
       ksbs[i].code = code;
       ksbs[i].description = description;
+      ksbs[i].is_complete = is_complete;
+
       return HttpResponse.json(ksbs[i], { status: 200 }); 
     }
   }
