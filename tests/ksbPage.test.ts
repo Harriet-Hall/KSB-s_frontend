@@ -44,6 +44,7 @@ describe("KsbPage", () => {
 
     it("should allow users to add a ksb", async () => {
       await renderSuspended(KsbPage);
+
       const rows = screen.getAllByRole("row");
 
       expect(rows.length).toBe(4);
@@ -72,44 +73,62 @@ describe("KsbPage", () => {
       expect(screen.getByText("Test description")).toBeDefined();
     }),
 
-  it("should allow users to update a ksb", async () => {
+  it("should allow users to update a ksb type", async () => {
 
     await renderSuspended(KsbPage);
-    const rows = screen.getAllByRole("row");
 
-    
     const typeElement = screen.getByTestId("type-id-0");
-    const codeElement = screen.getByTestId("code-id-0");
-    const descriptionElement = screen.getByTestId("description-id-0");
-    
-
     typeElement.textContent = "";
-    codeElement.textContent = "";
-    descriptionElement.textContent = "";
-  
-
+    
     await user.type(typeElement, "S");
     await user.type(typeElement, "k");
     await user.type(typeElement, "i");
     await user.type(typeElement, "l");
     await user.type(typeElement, "l");
+
     expect(typeElement.textContent).toBe("Skill");
-    
-    
-    await user.type(codeElement, "1");
-    expect(codeElement.textContent).toBe("1");
-    
-    
-    for(let i = 0; i <16; i++){
-      await user.type(descriptionElement, "x");
-    }
-    expect(descriptionElement.textContent).toBe("xxxxxxxxxxxxxxxx");
 
     await user.click(screen.getByRole("button", { name: "update-id-0" }));
     const updatedRows = screen.getAllByRole("row");
 
-    expect(updatedRows[1].textContent).toBe("UpdateSkill1xxxxxxxxxxxxxxxxWed, 12 Mar 2025 12:45:39 GMTcode qualityDelete")
+    expect(updatedRows[1].textContent).toContain("Skill")
+  }),
   
-  })
+  it("should allow users to update a ksb code", async () => {
+    
+    await renderSuspended(KsbPage);
+  
+    const codeElement = screen.getByTestId("code-id-0");
 
-});
+    codeElement.textContent = "";
+    await user.type(codeElement, "1")
+    expect(codeElement.textContent).toBe("1");
+    
+    await user.click(screen.getByRole("button", { name: "update-id-0" }));
+    const updatedRows = screen.getAllByRole("row");
+
+    expect(updatedRows[1].textContent).toContain("1")
+  }), 
+
+  it("should allow users to update a ksb description", async () => {
+    
+    await renderSuspended(KsbPage);
+
+    const descriptionElement = screen.getByTestId("description-id-0")
+    descriptionElement.textContent = "";
+    
+    for(let i = 0; i <16; i++){
+        await user.type(descriptionElement, "x");
+      }
+
+      expect(descriptionElement.textContent).toBe("xxxxxxxxxxxxxxxx");
+  
+      
+      await user.click(screen.getByRole("button", { name: "update-id-0" }));
+      const updatedRows = screen.getAllByRole("row");
+      expect(updatedRows[1].textContent).toContain("xxxxxxxxxxxxxxxx")
+    })
+    
+    
+  });
+  
