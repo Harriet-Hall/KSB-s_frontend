@@ -23,16 +23,6 @@ export default defineEventHandler(async (event) => {
       return {}
     }
   
-    // if (email === config.private.userEmail && password === config.private.userPassword) {
-  
-    //   await setUserSession(event, {
-    //     user: {
-    //       name: 'John Doe restricted access', 
-    //       role: 'user'
-    //     }
-    //   })
-    //   return {}
-    // }
   } catch{
 
 
