@@ -38,8 +38,8 @@ This frontend displays a list of KSBs.
 - click the `Delete` button at the side of the KSB you would like to delete
 
 **update KSB**
-- editable values include `type`, `code` and `description`
-- click on a KSB's editable value - so if you want to updated a KSB's code, click on it's `code` and type the new value
+- editable fields include `type`, `code`, `description` and `is complete`
+- click on a KSB's editable value - e.g. if you want to updated a KSB's code, click on it's `code` and type the new value
 - once you have updated the chosen value/values, click the `Update` button at the side of the KSB
 
   - if the new value/values are invalid or the KSB with those values already exists, the KSB will not be updated
