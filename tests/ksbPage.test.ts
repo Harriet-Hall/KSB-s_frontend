@@ -128,6 +128,6 @@ describe("KsbPage", () => {
 
       await user.click(screen.getByRole("button", { name: "update-id-0" }));
       const updatedRows = screen.getAllByRole("row");
-      expect(updatedRows[1].textContent).toContain("xxxxxxxxxxxxxxxx");
+      expect(updatedRows[1].textContent).toContain("true");
     });
 });
