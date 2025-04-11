@@ -5,7 +5,6 @@ const props = defineProps<{
 }>();
 
 const editableKsbs = ref<Ksb[]>([...props.data])
-let isModified = false
 
 watch(() => props.data, (newData) => {
   editableKsbs.value = [...newData]
@@ -21,7 +20,7 @@ const handleRemove = async (id: string) => {
 
 const handleEdit = async (index: number) => {
   const ksb = editableKsbs.value[index]
-
+  console.log(ksb, "handleedit")
   try {
     await useAPI(`/ksbs/${ksb.id}`, {
       method: "PUT",
@@ -46,7 +45,6 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
   const target = e.target as HTMLElement
   const value = target.textContent!
   const ksb = editableKsbs.value[index];
-
   try { 
     if (attribute === 'code') {
       ksb.code = +(value);
@@ -55,10 +53,10 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
     } else if (attribute === 'description') {
       ksb.description = value;
     } else if (attribute === 'is_complete') {
-      const boolValue = Boolean(value)
-      ksb.is_complete = boolValue
-      
+      let boolValue = (value === 'true');
+      ksb.is_complete = boolValue 
     }
+    
     ksb.isModified = true
   } catch (error) {
     console.error("Error adding KSB:", error);
