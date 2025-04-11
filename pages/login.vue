@@ -21,9 +21,9 @@ async function login() {
     if( user.value?.role == "admin"){
       await navigateTo('/full-access')
     }
-    else if ( user.value?.role == "user") {
-      await navigateTo('/restricted-access')
-    }
+    // else if ( user.value?.role == "user") {
+    //   await navigateTo('/restricted-access')
+    // }
   })
   .catch(() =>{ 
     alert('Bad credentials')})

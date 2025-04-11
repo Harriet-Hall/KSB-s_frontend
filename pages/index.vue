@@ -1,23 +1,23 @@
 
 <script setup>
 
-definePageMeta({
-  middleware: ["authenticated", "role"],
-  roles: ['user']
-});
-const { user, clear: clearSession } = useUserSession()
+// definePageMeta({
+//   middleware: ["authenticated", "role"],
+//   roles: ['user']
+// });
+// const { user, clear: clearSession } = useUserSession()
 
-async function logout() {
-  await clearSession()
-  await navigateTo('../login')
-}
+// async function logout() {
+//   await clearSession()
+//   await navigateTo('../login')
+// }
 const { data: ksbs } = await useAPI('/ksbs')
 </script>
 
 <template>
-   <div class="container">
+   <!-- <div class="container">
     <button @click="logout">Logout</button>
-  </div>
+  </div> -->
 
   <div class="table-padding">
     <table>
