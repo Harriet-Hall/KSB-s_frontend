@@ -17,7 +17,7 @@ async function login() {
     const {user} = useUserSession()
     await refreshSession()
 
-    console.log(credentials ,"api res")
+
     if( user.value?.role == "admin"){
       await navigateTo('/full-access')
     }

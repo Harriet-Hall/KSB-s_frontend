@@ -35,8 +35,7 @@ export default defineEventHandler(async (event) => {
     }
   } catch{
 
-    console.log("Admin Email:", config.private.adminEmail);
-    console.log("Admin Password:", config.private.adminPassword);
+
     throw createError({
       statusCode: 401,
       message: 'Bad credentials'
