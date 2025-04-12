@@ -44,6 +44,7 @@ This frontend displays a list of KSBs.
 - once you have updated the chosen value/values, click the `Update` button at the side of the KSB
 
   - if the new value/values are invalid or the KSB with those values already exists, the KSB will not be updated
+  - if the update was successful, the updated KSB will appear at the top of the list 
 
 **sort KSBs**
 - (KSB's are already ordered by `last updated`)
