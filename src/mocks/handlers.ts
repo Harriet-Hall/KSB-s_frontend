@@ -37,16 +37,16 @@ let initialKsbs = [
 let ksbs = [...initialKsbs]
 
 export const handlers = [
-  http.get("https://m7sq42zktc.execute-api.eu-west-2.amazonaws.com/prod/ksbs", ({ request }) => {
+  http.get("https://tf4uqz3vja.execute-api.eu-west-2.amazonaws.com/prod/ksbs", ({ request }) => {
     return HttpResponse.json(ksbs);
   }),
 
-  http.delete("https://m7sq42zktc.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:id", ({ params }) => {
+  http.delete("https://tf4uqz3vja.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:id", ({ params }) => {
     ksbs = ksbs.filter((ksb) => ksb.id != params.id);
     return HttpResponse.json({}, { status: 204 });
   }),
 
-  http.post("https://m7sq42zktc.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:type", async ({ request, params }) => {
+  http.post("https://tf4uqz3vja.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:type", async ({ request, params }) => {
 
     const request_data = (await request.json()) as KsbPostRequestData;
 
@@ -64,7 +64,7 @@ export const handlers = [
     ksbs.push(new_ksb);
     return HttpResponse.json(ksbs, { status: 201 });
   }),
-  http.put("https://m7sq42zktc.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:id", async ({ request, params }) => {
+  http.put("https://tf4uqz3vja.execute-api.eu-west-2.amazonaws.com/prod/ksbs/:id", async ({ request, params }) => {
 
   const request_data = await request.json();
   const { type, code, description, is_complete } = request_data as KsbUpdateRequestData
