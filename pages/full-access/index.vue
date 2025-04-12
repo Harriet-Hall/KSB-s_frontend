@@ -33,10 +33,11 @@ watch(ksbs, (newArray) => {
   <div class="container">
     <button @click="logout">Logout</button>
   </div>
-  <SortKsbs :data="ksbList" sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
-  <SortKsbs :data="ksbList" sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
-
   <AddKsb />
+  <div class="sortby-button-position-right">
+    <SortKsbs :data="ksbList" sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
+    <SortKsbs :data="ksbList" sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
+  </div>
   <KsbList :data="ksbList"></KsbList>
 </template>
 <style>
@@ -49,4 +50,9 @@ h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
+.sortby-button-position-right{
+  position: absolute;
+  right: 8px;
+}
+
 </style>
