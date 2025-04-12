@@ -41,6 +41,11 @@ const handleEdit = async (index: number) => {
 
 }
 
+const handleClick = async (index: number) => {
+  const ksb = editableKsbs.value[index];
+  ksb.isModified = true
+}
+
 const handleUpdate = async (e: Event, index: number, attribute: string) => {
   const target = e.target as HTMLElement
   const value = target.textContent!
@@ -56,15 +61,11 @@ const handleUpdate = async (e: Event, index: number, attribute: string) => {
       let boolValue = (value === 'true');
       ksb.is_complete = boolValue 
     }
-    
+
     ksb.isModified = true
   } catch (error) {
     console.error("Error adding KSB:", error);
   }
-}
-const handleClick = async (index: number) => {
-  const ksb = editableKsbs.value[index];
-  ksb.isModified = true
 }
 </script>
 
