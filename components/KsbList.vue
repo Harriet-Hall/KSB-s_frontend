@@ -12,8 +12,11 @@ watch(() => props.data, (newData) => {
 
 
 const handleRemove = async (id: string) => {
-  await useAPI(`/ksbs/${id}`, { method: "DELETE" })
-  // refreshNuxtData();
+  try {
+    await useAPI(`/ksbs/${id}`, { method: "DELETE" })
+  } finally {
+    await refreshNuxtData()
+  }
 };
 
 
