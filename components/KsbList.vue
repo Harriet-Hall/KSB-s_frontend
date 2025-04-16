@@ -13,14 +13,14 @@ watch(() => props.data, (newData) => {
 
 const handleRemove = async (id: string) => {
   await useAPI(`/ksbs/${id}`, { method: "DELETE" })
-  refreshNuxtData();
+  // refreshNuxtData();
 };
 
 
 
 const handleEdit = async (index: number) => {
   const ksb = editableKsbs.value[index]
-  console.log(ksb, "handleedit")
+
   try {
     await useAPI(`/ksbs/${ksb.id}`, {
       method: "PUT",
