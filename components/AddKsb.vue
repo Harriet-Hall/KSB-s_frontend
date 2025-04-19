@@ -38,13 +38,15 @@ const addKsb = async () => {
       },
     });
 
-    refreshNuxtData();
+  } catch (error) {
+     console.error("Error adding KSB:", error);
+
+  } finally {
+    reloadNuxtApp()
     selectedType.value = null;
     code.value = null;
     description.value = "";
     selectedTheme.value = null;
-  } catch (error) {
-    console.error("Error adding KSB:", error);
   }
 };
 </script>

@@ -15,10 +15,11 @@ const handleRemove = async (id: string) => {
   try {
     await useAPI(`/ksbs/${id}`, { method: "DELETE" })
   } finally {
-    await refreshNuxtData()
+     await useAPI("/ksbs");
+
+    reloadNuxtApp()
   }
 };
-
 
 
 const handleEdit = async (index: number) => {
