@@ -61,7 +61,9 @@ describe("KsbPage", () => {
       );
 
       await user.click(screen.getByRole("button", { name: "Add KSB" }));
-
+  
+      refreshNuxtData()
+      
       await waitFor(() => {
         expect(screen.getAllByRole("row")).toHaveLength(5);
       });
