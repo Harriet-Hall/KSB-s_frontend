@@ -21,10 +21,23 @@ export default defineEventHandler(async (event) => {
         }
       })
       return {}
+
+    } else {
+
+      await setUserSession(event, {
+        user: {
+          name: 'John Doe restricted access',
+          role: 'user'
+        }
+      })
+      throw createError({
+        statusCode: 401,
+        message: 'Bad credentials'
+    
+      })
     }
   
   } catch{
-
 
     throw createError({
       statusCode: 401,
