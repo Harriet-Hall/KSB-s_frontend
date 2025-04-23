@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { server } from "../src/mocks/node";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
 import { screen, waitFor } from "@testing-library/vue";
@@ -36,6 +36,7 @@ describe("KsbPage for authenitcated users", () => {
       await user.click(screen.getByRole("button", { name: "delete-id-0" }));
 
       await waitFor(() => {
+        expect(screen.queryByText("knowledge description")).toBeNull()
         expect(screen.getAllByRole("row")).toHaveLength(3);
       });
     }),
