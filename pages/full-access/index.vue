@@ -11,7 +11,7 @@ async function logout() {
   await clearSession();
   await navigateTo("../login");
 }
-const { data: ksbs } = await useAPI("/ksbs");
+const { data: ksbs } = await useAPI("/ksbs",  { key: "ksbs" });
 
 const { ksbList, handleSort } = useSort(ksbs.value);
 watch(ksbs, (newArray) => {

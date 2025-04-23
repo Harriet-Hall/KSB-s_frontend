@@ -42,7 +42,7 @@ const addKsb = async () => {
      console.error("Error adding KSB:", error);
 
   } finally {
-    reloadNuxtApp()
+    await refreshNuxtData("ksbs");
     selectedType.value = null;
     code.value = null;
     description.value = "";

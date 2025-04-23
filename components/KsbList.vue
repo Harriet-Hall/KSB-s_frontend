@@ -17,7 +17,7 @@ const handleRemove = async (id: string) => {
   } finally {
      await useAPI("/ksbs");
 
-    reloadNuxtApp()
+     await refreshNuxtData("ksbs");
   }
 };
 
@@ -37,7 +37,7 @@ const handleEdit = async (index: number) => {
     });
 
     ksb.isModified = false
-    refreshNuxtData();
+    await refreshNuxtData("ksbs");
     
   } catch (error) {
     console.error("Error adding KSB:", error);
