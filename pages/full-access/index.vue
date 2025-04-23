@@ -11,19 +11,9 @@ async function logout() {
   await clearSession();
   await navigateTo("../login");
 }
-
 const { data: ksbs } = await useAPI("/ksbs");
 
-const ksbList = ref(ksbs.value);
-
-const handleSort = async (property) => {
-  if (property == "updated-at") {
-    ksbList.value = ksbs.value;
-  } else {
-    return (ksbList.value = _.orderBy(ksbList.value, [property], ["asc"]));
-  }
-};
-
+const { ksbList, handleSort } = useSort(ksbs.value);
 watch(ksbs, (newArray) => {
   ksbList.value = newArray;
 });
@@ -35,8 +25,8 @@ watch(ksbs, (newArray) => {
   </div>
   <AddKsb />
   <div class="sortby-button-position-right">
-    <SortKsbs :data="ksbList" sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
-    <SortKsbs :data="ksbList" sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
+    <SortKsbs sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
+    <SortKsbs sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
   </div>
   <KsbList :data="ksbList"></KsbList>
 </template>
@@ -50,9 +40,9 @@ h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
-.sortby-button-position-right{
+
+.sortby-button-position-right {
   position: absolute;
   right: 8px;
 }
-
 </style>

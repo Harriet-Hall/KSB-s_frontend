@@ -1,11 +1,21 @@
-
 <script setup>
+import _ from "lodash";
 
 const { data: ksbs } = await useAPI('/ksbs')
+
+
+const { ksbList, handleSort } = useSort(ksbs.value);
+watch(ksbs, (newArray) => {
+  ksbList.value = newArray;
+});
+
 </script>
 
 <template>
-
+  <div class="sortby-button-position-right">
+    <SortKsbs sortedValue="updated-at" label="Sort by: last updated" @sorted=handleSort></SortKsbs>
+    <SortKsbs sortedValue="theme" label="Sort by: theme" @sorted=handleSort></SortKsbs>
+  </div>
   <div class="table-padding">
     <table>
       <caption>Knowledge, Skills and Behaviours</caption>
@@ -20,7 +30,7 @@ const { data: ksbs } = await useAPI('/ksbs')
 
 
         </tr>
-        <tr v-for="(ksb) in ksbs">
+        <tr v-for="(ksb) in ksbList">
           <td>{{ ksb.type }}</td>
           <td>{{ ksb.code }}</td>
           <td>{{ ksb.description }}</td>
@@ -28,7 +38,7 @@ const { data: ksbs } = await useAPI('/ksbs')
           <td>{{ ksb.theme }}</td>
           <td>{{ ksb.is_complete }}</td>
 
-          
+
         </tr>
       </tbody>
     </table>
@@ -45,14 +55,17 @@ caption {
 
 
 }
+
 .container {
   padding-top: 20px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
 }
+
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
+
 .table-padding {
   padding-top: 20px;
 }
@@ -69,6 +82,10 @@ tbody tr:nth-child(even) {
 table {
   background-color: #ff7edf;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
+.sortby-button-position-right {
+  position: absolute;
+  right: 8px;
 }
 </style>
