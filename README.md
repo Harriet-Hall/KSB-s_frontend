@@ -2,7 +2,7 @@
 
 This frontend displays a list of KSBs.
 - If a user is logged in as admin, they can add a new KSB, delete a KSB's, update a KSB and sort KSBs by `last updated` and `theme`
-- If users aren't logged in they can only view KSB's
+- If users aren't logged in they can only view KSB's and sort KSBs by `last updated` and `theme`
 
 ## Set up project to run tests
 
