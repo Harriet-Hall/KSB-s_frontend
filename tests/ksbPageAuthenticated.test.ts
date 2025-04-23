@@ -156,7 +156,7 @@ describe("KsbPage for authenitcated users", () => {
    
         await renderSuspended(KsbPage);
 
-        //unsort the ksbs as they are sorted by last updated by the API
+        // Unsort by theme first
         await user.click(screen.getByRole("button", { name: "Sort by: theme" }));
   
         const rows = screen.getAllByRole("row");
@@ -164,7 +164,7 @@ describe("KsbPage for authenitcated users", () => {
         expect(rows[1].getHTML()).toContain("Wed, 12 Mar 2025 12:45:39 GMT");
         expect(rows[2].getHTML()).toContain("Fri, 14 Mar 2025 12:45:39 GMT");
         expect(rows[3].getHTML()).toContain("Thu, 13 Mar 2025 12:45:39 GMT");
-        //sort ksbs
+        // Sort by last updated
         await user.click(
           screen.getByRole("button", { name: "Sort by: last updated" })
         );

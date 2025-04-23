@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import _ from "lodash";
 import { defineEmits } from 'vue';
 
 const emit = defineEmits(['sorted']);
